@@ -1,0 +1,13 @@
+[33m650ae14[m[33m ([m[1;36mHEAD -> [m[1;32mdevAde[m[33m, [m[1;31morigin/devAde[m[33m)[m HEAD@{0}: commit: penambahan API User Privileged
+[33mfefab43[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/development[m[33m, [m[1;32mmaster[m[33m, [m[1;32mdevelopment[m[33m)[m HEAD@{1}: checkout: moving from master to devAde
+[33mfefab43[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/development[m[33m, [m[1;32mmaster[m[33m, [m[1;32mdevelopment[m[33m)[m HEAD@{2}: pull origin development: Fast-forward
+[33m5c77b63[m[33m ([m[1;31morigin/testRobi[m[33m)[m HEAD@{3}: checkout: moving from development to master
+[33mfefab43[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/development[m[33m, [m[1;32mmaster[m[33m, [m[1;32mdevelopment[m[33m)[m HEAD@{4}: checkout: moving from master to development
+[33m5c77b63[m[33m ([m[1;31morigin/testRobi[m[33m)[m HEAD@{5}: checkout: moving from development to master
+[33mfefab43[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/development[m[33m, [m[1;32mmaster[m[33m, [m[1;32mdevelopment[m[33m)[m HEAD@{6}: commit: fix masterdata API
+[33m5c77b63[m[33m ([m[1;31morigin/testRobi[m[33m)[m HEAD@{7}: checkout: moving from master to development
+[33m5c77b63[m[33m ([m[1;31morigin/testRobi[m[33m)[m HEAD@{8}: checkout: moving from development to master
+[33m5c77b63[m[33m ([m[1;31morigin/testRobi[m[33m)[m HEAD@{9}: checkout: moving from master to development
+[33m5c77b63[m[33m ([m[1;31morigin/testRobi[m[33m)[m HEAD@{10}: commit: contoh Project API
+[33m24b7b42[m HEAD@{11}: commit: contoh Project API
+[33md4bbe0d[m HEAD@{12}: commit (initial): Api TA
