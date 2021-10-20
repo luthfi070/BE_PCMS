@@ -127,7 +127,7 @@ class ProjectController extends Controller
     {
         //
         $data = Project::where('SetDefault','1')
-        ->first('ProjectID');
+        ->first(['ProjectID', 'ProjectName']);
         return response($data);
 
         

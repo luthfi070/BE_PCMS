@@ -22,6 +22,9 @@ class BussinessPartnerController extends Controller
         ->join('city','bussinesspartner.CityID','=','city.id')
         ->select('bussinesspartner.*', 'country.CountryName','city.CityName', 'bussiness_types.BussinessTypeName')
         ->get();
+        // return BussinessPartner::join('bussiness_types', 'bussinesspartner.BussinessTypeID', '=', 'bussiness_types.id')
+        // ->join('country','bussinesspartner.CountryID','=','country.id')
+        // ->get();
     }
 
     /**
