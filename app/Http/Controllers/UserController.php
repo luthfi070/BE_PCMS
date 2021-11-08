@@ -115,6 +115,11 @@ class UserController extends Controller
         return response($data);
     }
 
+    public function getUserFullName($id){
+        $data = Users::find($id);
+        return response($data);
+    }
+
     public function show(Users $Users, $id)
     {
         //

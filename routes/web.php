@@ -21,6 +21,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     //Project
     $router->get('/GetDataProject', ['uses' => 'ProjectController@index']);
+    $router->get('/GetDataProjectByVillageId/{village_id}', ['uses' => 'ProjectController@indexByVillageId']);
     $router->get('/DataProjectByid/{id}', ['uses' => 'ProjectController@show']);
     $router->post('/InsertDataProject', ['uses' => 'ProjectController@create']);
     $router->delete('/DeleteDataProject/{id}', ['uses' => 'ProjectController@destroy']);
@@ -136,6 +137,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
      $router->delete('/DeleteDataUser/{id}', ['uses' => 'UserController@destroy']);
      $router->post('/UpdateUser/{id}', ['uses' => 'UserController@update']);
      $router->get('/getUserPrivileged/{id}', ['uses' => 'UserController@getUserPrivileged']);
+     $router->get('/getUserFullName/{id}', ['uses' => 'UserController@getUserFullName']);
 
     //Project Number
     $router->get('/DataProjectNumber', ['uses' => 'ProjectNumberController@index']);

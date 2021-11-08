@@ -27,6 +27,10 @@ class ProjectController extends Controller
 
     }
 
+    public function indexByVillageId($village_id){
+        return Project::where('village_id', $village_id)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -47,7 +51,8 @@ class ProjectController extends Controller
             'CommencementDate'  => $request->CommencementDate,
             'CompletionDate'    => $request->CompletionDate,
             'ProjectDuration'   => $request->ProjectDuration,
-            'CurrencyType'      => $request->CurrencyType
+            'CurrencyType'      => $request->CurrencyType,
+            'village_id' => $request->village_id
             ]);
 
          //response()->json(['error' => 'invalid'], 401);

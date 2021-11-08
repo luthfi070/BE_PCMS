@@ -11,7 +11,7 @@ class VisualProgressController extends Controller
     public function index($projectID, $contractorID)
     {
         //
-        return  DB::select("SELECT
+        $data = DB::select("SELECT
         b.*,
         b.id as idVisual,
         c.*,
@@ -25,6 +25,7 @@ class VisualProgressController extends Controller
         AND b.contractorID = '" . $contractorID . "'
         GROUP BY
         idVisual");
+        return  $data;
     }
 
 
