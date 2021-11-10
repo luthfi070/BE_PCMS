@@ -63,6 +63,7 @@ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 */
 
 $app->configure('app');
+$app->configure('database');
 
 /*
 |--------------------------------------------------------------------------
