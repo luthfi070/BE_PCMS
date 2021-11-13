@@ -173,6 +173,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('/UpdateBoqChildParentLevel/{id}', ['uses' => 'BaselineBoqController@UpdateBoqChildParentLevel']);
     $router->get('/DataBoqchild/{id}', ['uses' => 'BaselineBoqController@DataBoqchild']);
     $router->get('/getAllBoq/{contractorID}/{projectID}', ['uses' => 'BaselineBoqController@getAllBoq']);
+    $router->get('/getAllBoqParent/{contractorID}/{projectID}', ['uses' => 'BaselineBoqController@getAllBoqParent']);
+    $router->get('/getAllBoqChild/{parentID}', ['uses' => 'BaselineBoqController@getAllBoqChild']);
     $router->get('/getWeightBoq/{projectid}/{contractorid}', ['uses' => 'BaselineBoqController@getWeightBoq']);
 
     $router->get('/DataBoqHistory', ['uses' => 'HistoryBoqController@index']);

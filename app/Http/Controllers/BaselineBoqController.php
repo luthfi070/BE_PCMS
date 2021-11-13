@@ -45,6 +45,18 @@ class BaselineBoqController extends Controller
         return response($data);
     }
 
+    public function getAllBoqParent($contractorID, $projectID)
+    {
+        $data = BaselineBoq::where([
+            ['parentItem', '=', null],['contractorID', '=',  $contractorID],['ProjectID', '=',  $projectID]])->get();
+        return response($data);
+    }
+    public function getAllBoqChild($parentID)
+    {
+        $data = BaselineBoq::where('parentItem', '=', $parentID)->get();
+        return response($data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
