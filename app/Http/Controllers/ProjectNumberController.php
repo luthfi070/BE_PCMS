@@ -77,9 +77,11 @@ class ProjectNumberController extends Controller
     {
         //
         $data = ProjectNumber::where('ProjectID' , $id)
-        ->where('BussinessTypeID', 1)
+        // ->where('BussinessTypeID', 1)
+        ->where('BussinessTypeName', 'contractor')
         // ->join('projects','project_numbers.ProjectID','=','projects.ProjectID')
         ->join('bussinesspartner','project_numbers.BusinessPartnerID','=','bussinesspartner.id')
+        ->join('bussiness_types','bussinesspartner.BussinessTypeID','=','bussiness_types.id')
         ->join('personil','bussinesspartner.id','=','personil.BussinessPartnerID')
         ->select('project_numbers.*','bussinesspartner.BussinessName','personil.PersonilName')
         ->get();
@@ -90,9 +92,11 @@ class ProjectNumberController extends Controller
     {
         //
         $data = ProjectNumber::where('ProjectID' , $id)
-        ->where('BussinessTypeID', 2)
+        // ->where('BussinessTypeID', 2)
+        ->where('BussinessTypeName', 'consultant')
         // ->join('projects','project_numbers.ProjectID','=','projects.ProjectID')
         ->join('bussinesspartner','project_numbers.BusinessPartnerID','=','bussinesspartner.id')
+        ->join('bussiness_types','bussinesspartner.BussinessTypeID','=','bussiness_types.id')
         ->join('personil','bussinesspartner.id','=','personil.BussinessPartnerID')
         ->select('project_numbers.*','bussinesspartner.BussinessName','personil.PersonilName')
         ->get();
