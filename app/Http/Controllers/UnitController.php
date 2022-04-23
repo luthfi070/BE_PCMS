@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UnitController extends Controller
 {
@@ -16,6 +17,19 @@ class UnitController extends Controller
     {
         //
         return Unit::all();
+    }
+
+    public function getOrInsertUnitBySymbol($symbol){
+        $unit = Unit::where(DB::raw('lower(unitSymbol)'), '=', strtolower($symbol))
+        ->orWhere(DB::raw('lower(unitName)'), '=', strtolower($symbol))->first();
+        if(empty($unit)){
+            $unit = Unit::create([
+                'unitName' => $symbol,
+                'unitSymbol' => $symbol
+            ]);
+        }
+
+        return response()->json($unit);
     }
 
     /**
