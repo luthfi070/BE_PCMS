@@ -92,6 +92,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     //currency
     $router->get('/DataCurrency', ['uses' => 'CurrencyController@index']);
+    $router->get('/getOrInsertCurrencyByName/{currencyName}', ['uses' => 'CurrencyController@getOrInsertCurrencyByName']);
     $router->post('/InsertDataCurrency', ['uses' => 'CurrencyController@create']);
     $router->get('/DataCurrencyByid/{id}', ['uses' => 'CurrencyController@show']);
     $router->delete('/DeleteDataCurrency/{id}', ['uses' => 'CurrencyController@destroy']);
@@ -99,6 +100,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     //unit
     $router->get('/DataUnit', ['uses' => 'UnitController@index']);
+    $router->get('/getOrInsertUnitBySymbol/{symbol}', ['uses' => 'UnitController@getOrInsertUnitBySymbol']);
     $router->post('/InsertDataUnit', ['uses' => 'UnitController@create']);
     $router->get('/DataUnitByid/{id}', ['uses' => 'UnitController@show']);
     $router->delete('/DeleteDataUnit/{id}', ['uses' => 'UnitController@destroy']);

@@ -20,6 +20,20 @@ class CurrencyController extends Controller
         ->get();
     }
 
+    public function getOrInsertCurrencyByName($currencyName)
+    {
+        $currency = Currency::where('CurrencyName', $currencyName)->first();
+        if(empty($currency)){
+            $currency = Currency::create([
+                'CountryID' => 9,
+                'CurrencyName' => $currencyName,
+            ]);
+        }
+
+        return response()->json($currency);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
