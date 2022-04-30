@@ -149,6 +149,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/DataLastProjectnumber', ['uses' => 'ProjectNumberController@getLastProjectNumber']);
     $router->get('/getProjectIDConsultant/{id}', ['uses' => 'ProjectNumberController@getProjectIDConsultant']);
     $router->get('/getProjectIDConContractor/{id}', ['uses' => 'ProjectNumberController@getProjectIDConContractor']);
+    $router->delete('/deleteProjectNumber/{id}', ['uses' => 'ProjectNumberController@destroy']);
 
     //Contractor Equipment
     $router->get('/DataContractorEquipment/{id}', ['uses' => 'ContractorEquipmentController@index']);

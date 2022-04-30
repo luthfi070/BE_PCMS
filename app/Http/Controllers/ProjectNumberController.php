@@ -169,8 +169,9 @@ class ProjectNumberController extends Controller
      * @param  \App\Models\ProjectNumber  $projectNumber
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProjectNumber $projectNumber)
+    public function destroy(ProjectNumber $projectNumber, $id)
     {
-        //
+        $projectNumber = ProjectNumber::find($id)->delete();
+        return response($projectNumber);
     }
 }
