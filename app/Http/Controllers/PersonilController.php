@@ -70,7 +70,7 @@ class PersonilController extends Controller
     {
         //
 
-        $data = Personil::where('bussinesspartner.id', $id)->join('bussinesspartner', 'bussinesspartner.id', '=', 'personil.BussinessPartnerID')
+        $data = Personil::where('personil.id', $id)->join('bussinesspartner', 'bussinesspartner.id', '=', 'personil.BussinessPartnerID')
         ->join('country','personil.CountryID','=','country.id')
         ->join('city','personil.CityID','=','city.id')
         ->join('position','personil.PositionID','=','position.id')
