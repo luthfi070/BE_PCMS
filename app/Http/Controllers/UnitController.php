@@ -19,7 +19,8 @@ class UnitController extends Controller
         return Unit::all();
     }
 
-    public function getOrInsertUnitBySymbol($symbol){
+    public function getOrInsertUnitBySymbol(Request $request){
+        $symbol = $request->symbol;
         $unit = Unit::where(DB::raw('lower(unitSymbol)'), '=', strtolower($symbol))
         ->orWhere(DB::raw('lower(unitName)'), '=', strtolower($symbol))->first();
         if(empty($unit)){
