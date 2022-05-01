@@ -181,15 +181,8 @@ class BaselineBoqController extends Controller
     public function destroy($id)
     {
         //
+        BaselineBoq::where('parentItem', $id)->delete();
         BaselineBoq::where('id',$id)->delete();
-        DB::delete('DELETE
-         FROM baselineboq
-         WHERE parentItem IN
-         (
-             SELECT parentItem
-             FROM baselineboq
-             WHERE parentItem = ?
-         )',[$id]);
         return response()->json(['status' => 'success'], 200);
     }
 }
