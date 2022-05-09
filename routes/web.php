@@ -275,6 +275,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/getWeightWbs/{projectid}/{contractorid}', ['uses' => 'BaselineWbsController@getWeightWbs']);
     $router->get('/getWeightBaselineWbsByItem/{id}', ['uses' => 'BaselineWbsController@getWeightBaselineWbsByItem']);
     $router->get('/getBaselineChart/{projectid}/{contractorid}', ['uses' => 'BaselineWbsController@getBaselineChart']);
+    $router->get('/getWbsParentDuration/{id}', ['uses' => 'BaselineWbsController@getWbsParentDuration']);
+
 
     $router->get('/DataCurrentWbs/{id}/{projectid}', ['uses' => 'CurrentWbsController@index']);
     $router->get('/DataCurrentWbsLevel/{id}/{itemid}/{projectid}', ['uses' => 'CurrentWbsController@DataActualWbsLevel']);

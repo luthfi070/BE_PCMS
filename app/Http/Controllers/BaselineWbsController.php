@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 use App\Models\BaselineWbs;
+use DateTime;
 
 class BaselineWbsController extends Controller
 {
@@ -214,6 +215,18 @@ class BaselineWbsController extends Controller
         a.id');
     }
 
+    public function getWbsParentDuration($id){
+        $datas = BaselineWbs::where('parentItem', $id)->get();
+        $totalDuration = 0;
+
+        // countDay
+        foreach($datas as $data){
+            $duration = (new DateTime($data->startDate))->diff(new DateTime($data->endDate))->format("%a");
+            $totalDuration += $duration;
+        }
+        return response()->json(['status' => 'success', 'duration' => $totalDuration], 200);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -225,7 +238,8 @@ class BaselineWbsController extends Controller
     {
         //
         BaselineWbs::where('id', $id)->update($request->all());
-        return response()->json(['status' => 'success'], 200);
+        $parentItem = BaselineWbs::find($id)->parentItem;
+        return response()->json(['status' => 'success', 'parentItem' => $parentItem], 200);
     }
 
     public function UpdateWbsChildParentLevel(Request $request, $id)
