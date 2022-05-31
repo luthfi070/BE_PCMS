@@ -164,6 +164,8 @@ ORDER BY
             'price'      => $request->price,
             'amount'      => $request->amount,
             'weight'      => $request->weight,
+            'startDate' => $request->startDate ?? '0000-00-00',
+            'endDate' => $request->endDate ?? '0000-00-00',
             'ProjectID'      => $request->ProjectID,
             'unitID'      => $request->unitID,
             'contractorID'      => $request->contractorID,
