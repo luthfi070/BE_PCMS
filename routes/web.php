@@ -179,6 +179,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/getAllBoqParent/{contractorID}/{projectID}', ['uses' => 'BaselineBoqController@getAllBoqParent']);
     $router->get('/getAllBoqChild/{parentID}', ['uses' => 'BaselineBoqController@getAllBoqChild']);
     $router->get('/getWeightBoq/{projectid}/{contractorid}', ['uses' => 'BaselineBoqController@getWeightBoq']);
+    $router->get('/recalculateWeightBoq/{projectid}/{contractorid}', ['uses' => 'BaselineBoqController@recalculateWeightBoq']);
+
 
     $router->get('/DataBoqHistory', ['uses' => 'HistoryBoqController@index']);
     $router->post('/InsertDataBoqHistory', ['uses' => 'HistoryBoqController@create']);

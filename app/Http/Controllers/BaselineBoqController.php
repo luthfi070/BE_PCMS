@@ -172,6 +172,31 @@ class BaselineBoqController extends Controller
         return response()->json(['status' => 'success'], 200);
     }
 
+    public function recalculateWeightBoq($projectid, $contractorid)
+    {
+        $datas = BaselineBoq::where('projectID', $projectid)
+        ->where('contractorID', $contractorid)
+        ->get();
+        $totalAmountAll = BaselineBoq::where('projectID', $projectid)
+        ->where('contractorID', $contractorid)
+        ->sum('amount');
+
+        foreach ($datas as $data){
+            if($data->hasChild == 'Y'){
+                $totalAmountParent = BaselineBoq::where('parentItem', $data->id)->sum('amount');
+                $amount = $totalAmountParent;
+            }else{
+                $amount = $data->amount ?? 0;
+            }
+            $weight = ($amount/$totalAmountAll)*100;
+            $updateWeight = BaselineBoq::find($data->id)->update([
+                'weight' => $weight,
+            ]);
+        }
+        
+        return response()->json(['status' => 'success'], 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
