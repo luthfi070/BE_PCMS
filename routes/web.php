@@ -276,6 +276,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/getWeightBaselineWbsByItem/{id}', ['uses' => 'BaselineWbsController@getWeightBaselineWbsByItem']);
     $router->get('/getBaselineChart/{projectid}/{contractorid}', ['uses' => 'BaselineWbsController@getBaselineChart']);
     $router->get('/getWbsParentDuration/{id}', ['uses' => 'BaselineWbsController@getWbsParentDuration']);
+    $router->get('/recalculateWeightWbs/{projectid}/{contractorid}', ['uses' => 'BaselineWbsController@recalculateWeightWbs']);
 
 
     $router->get('/DataCurrentWbs/{id}/{projectid}', ['uses' => 'CurrentWbsController@index']);
@@ -290,6 +291,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/getWeightCurrentWbs/{projectid}/{contractorid}', ['uses' => 'CurrentWbsController@getWeightActualWbs']);
     $router->get('/getWeightCurrentWbsByItem/{id}', ['uses' => 'CurrentWbsController@getWeightCurrentWbsByItem']);
     $router->get('/getCurrentWbsChart/{projectid}/{contractorid}', ['uses' => 'CurrentWbsController@getCurrentWbsChart']);
+    $router->get('/recalculateWeightCurrentWbs/{projectid}/{contractorid}', ['uses' => 'CurrentWbsController@recalculateWeightCurrentWbs']);
+
 
     $router->post('/InsertDataCurrentWbsHistory', ['uses' => 'WbsHistoryController@create']);
     $router->get('/GetDataProjectOwner', ['uses' => 'ProjectController@GetDataProjectOwner']);

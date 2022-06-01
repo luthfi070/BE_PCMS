@@ -267,6 +267,31 @@ ORDER BY
         return response()->json(['status' => 'success'], 200);
     }
 
+    public function recalculateWeightCurrentWbs($projectid, $contractorid)
+    {
+        $datas = ActualWbs::where('projectID', $projectid)
+        ->where('contractorID', $contractorid)
+        ->get();
+        $totalAmountAll = ActualWbs::where('projectID', $projectid)
+        ->where('contractorID', $contractorid)
+        ->sum('amount');
+
+        foreach ($datas as $data){
+            if($data->hasChild == 'Y'){
+                $totalAmountParent = ActualWbs::where('parentItem', $data->id)->sum('amount');
+                $amount = $totalAmountParent;
+            }else{
+                $amount = $data->amount ?? 0;
+            }
+            $weight = ($amount/$totalAmountAll)*100;
+            $updateWeight = ActualWbs::find($data->id)->update([
+                'weight' => $weight,
+            ]);
+        }
+        
+        return response()->json(['status' => 'success'], 200);
+    }
+
    
     public function destroy($id)
     {
