@@ -48,49 +48,89 @@ class BaselineWbsController extends Controller
 
     public function getBaselineChart($projectid,$contractorid)
     {
-        return  DB::select("SELECT
-        a.A + COALESCE ( SUM( a.ay ), 0 ) baseline,
-        a.ColumnB x,
-        a.idx as month_num
-    FROM
-        (
-        SELECT
-            x.*,
-            y.A AS ay 
-        FROM
-            (
-            SELECT
-                SUM( amount ) A,
-                MONTHNAME( endDate ) ColumnB,
-                MONTH ( endDate ) idx 
-            FROM
-                baseline_wbs 
-            WHERE
-                parentItem IS NOT NULL 
-                AND ProjectID = '" . $projectid . "'  
-                AND contractorID = '" . $contractorid . "' 
-            GROUP BY
-                MONTH ( endDate ) 
-            ) x
-            LEFT OUTER JOIN (
-            SELECT
-                SUM( amount ) A,
-                MONTHNAME( endDate ) ColumnB,
-                MONTH ( endDate ) idx 
-            FROM
-                baseline_wbs 
-            WHERE
-                parentItem IS NOT NULL 
-                AND ProjectID = '" . $projectid . "' 
-                AND contractorID = '" . $contractorid . "' 
-            GROUP BY
-                MONTH ( endDate ) 
-            ) y ON y.idx < x.idx 
-        ) a 
-    GROUP BY
-        a.ColumnB 
-    ORDER BY
-        a.idx");
+    //     return  DB::select("SELECT
+    //     a.A + COALESCE ( SUM( a.ay ), 0 ) baseline,
+    //     a.ColumnB x,
+    //     a.idx as month_num
+    // FROM
+    //     (
+    //     SELECT
+    //         x.*,
+    //         y.A AS ay 
+    //     FROM
+    //         (
+    //         SELECT
+    //             SUM( amount ) A,
+    //             MONTHNAME( endDate ) ColumnB,
+    //             MONTH ( endDate ) idx 
+    //         FROM
+    //             baseline_wbs 
+    //         WHERE
+    //             parentItem IS NOT NULL 
+    //             AND ProjectID = '" . $projectid . "'  
+    //             AND contractorID = '" . $contractorid . "' 
+    //         GROUP BY
+    //             MONTH ( endDate ) 
+    //         ) x
+    //         LEFT OUTER JOIN (
+    //         SELECT
+    //             SUM( amount ) A,
+    //             MONTHNAME( endDate ) ColumnB,
+    //             MONTH ( endDate ) idx 
+    //         FROM
+    //             baseline_wbs 
+    //         WHERE
+    //             parentItem IS NOT NULL 
+    //             AND ProjectID = '" . $projectid . "' 
+    //             AND contractorID = '" . $contractorid . "' 
+    //         GROUP BY
+    //             MONTH ( endDate ) 
+    //         ) y ON y.idx < x.idx 
+    //     ) a 
+    // GROUP BY
+    //     a.ColumnB 
+    // ORDER BY
+    //     a.idx");
+
+        $baseline = BaselineWbs::where('projectID', $projectid)->where('contractorID',$contractorid)
+        ->select(DB::raw('sum(amount) as `baseline`'),DB::raw('DATE_FORMAT(endDate, "%Y-%m") date'))
+        ->where('amount', '>', 0)
+        ->groupby('date')
+        ->get();
+
+        $baseline_converted = [];
+        foreach ($baseline as $b){
+            $baseline_converted[$b->date] = $b->baseline;
+        }
+
+        $data = BaselineWbs::where('projectID', $projectid)->where('contractorID',$contractorid)
+        ->select(DB::raw('min(endDate) min_date, max(endDate) max_date'))
+        ->where('amount', '>', 0)
+        ->first();
+
+        $dates = [];
+        $month = strtotime($data->min_date);
+        $month = strtotime("-1 month", $month);
+
+        $end = strtotime($data->max_date);
+        $end = strtotime("+1 month", $end);
+
+        while($month < $end)
+        {
+            array_push($dates, date('Y-m', $month));
+            $month = strtotime("+1 month", $month);
+        }
+
+        $baseline_amount = 0;
+        $baseline_final = [];
+        foreach($dates as $date){
+            if(isset($baseline_converted[$date])){
+                $baseline_amount += $baseline_converted[$date];
+            }
+
+            array_push($baseline_final, ['baseline'=>$baseline_amount, 'x'=>$date]);
+        }
+        return $baseline_final;
     }
 
     /**
