@@ -104,13 +104,12 @@ class BaselineWbsController extends Controller
         }
 
         $data = BaselineWbs::where('projectID', $projectid)->where('contractorID',$contractorid)
-        ->select(DB::raw('min(endDate) min_date, max(endDate) max_date'))
+        ->select(DB::raw('min(startDate) min_date, max(endDate) max_date'))
         ->where('amount', '>', 0)
         ->first();
 
         $dates = [];
         $month = strtotime($data->min_date);
-        $month = strtotime("-1 month", $month);
 
         $end = strtotime($data->max_date);
         $end = strtotime("+1 month", $end);

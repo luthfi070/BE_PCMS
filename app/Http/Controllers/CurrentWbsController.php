@@ -178,14 +178,13 @@ class CurrentWbsController extends Controller
         }
 
         $data = ActualWbs::where('projectID', $projectid)->where('contractorID',$contractorid)
-        ->select(DB::raw('min(endDate) min_date, max(endDate) max_date'))
+        ->select(DB::raw('min(startDate) min_date, max(endDate) max_date'))
         ->where('amount', '>', 0)
         ->first();
 
-        $actual_min_date_plus = strtotime("-1 month", strtotime($data->min_date));
         $actual_max_date_plus = strtotime("+1 month", strtotime($data->max_date));
 
-        $min_date = strtotime($min_date_baseline) < $actual_min_date_plus ? $min_date_baseline : date('Y-m-d', $actual_min_date_plus);
+        $min_date = strtotime($min_date_baseline) < strtotime($data->min_date) ? $min_date_baseline : date('Y-m-d', strtotime($data->min_date));
         $max_date = strtotime($max_date_baseline) > $actual_max_date_plus ? $max_date_baseline : date('Y-m-d', $actual_max_date_plus);
 
         $dates = [];
